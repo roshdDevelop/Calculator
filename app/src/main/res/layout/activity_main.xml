@@ -35,20 +35,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             />
-        <TextView
-            style="@style/TextViewStyle"
-            android:id="@+id/equal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            />
-            <TextView
-                style="@style/TextViewStyle"
-                android:id="@+id/result"
-                android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_height="wrap_content"
-                />
     </LinearLayout>
     <LinearLayout
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,6 +57,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="percent"
                 style="@style/ButtonStyle"
                 android:id="@+id/btn_percent"
                 android:layout_weight="1"
@@ -80,6 +67,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="power"
                 style="@style/ButtonStyle"
                 android:id="@+id/btn_power"
                 android:layout_weight="1"
@@ -89,6 +77,7 @@
                 android:gravity="center_horizontal"
                 />
             <ImageButton
+                android:tag="remove"
                 android:backgroundTint="@color/white"
                 android:id="@+id/btn_back_space"
                 android:layout_weight="2"
@@ -132,6 +121,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="+"
                 style="@style/ButtonStyle"
                 android:id="@+id/btn_sum"
                 android:text="+"
@@ -175,6 +165,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="-"
                 style="@style/ButtonStyle"
                 android:id="@+id/btn_sub"
                 android:text="-"
@@ -218,6 +209,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="*"
                 style="@style/ButtonStyle"
                 android:id="@+id/btn_multi"
                 android:text="*"
@@ -243,6 +235,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="/"
                 style="@style/ButtonStyle"
                 android:id="@+id/btn_div"
                 android:layout_weight="2"
@@ -252,6 +245,7 @@
                 android:gravity="center_horizontal"
                 />
             <Button
+                android:tag="="
                 android:id="@+id/btn_result"
                 android:layout_weight="2"
                 android:layout_width="0dp"

@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tvNumber1, tvNumber2, tvResult, tvOperator, tvEqual;
+    TextView tvNumber1, tvNumber2, tvOperator;
     Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0,btn_sum,btn_sub,btn_div,btn_multi,btn_result,btn_clear,btn_percent,btn_float,btn_power;
 
     String stringNumber1 ="", stringNumber2 ="";
@@ -32,18 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         pressNumButton();
-        calculate();
-
-
+        pressCalculateNum();
     }
 
     //main methods
     private void init() {
         tvNumber1=(TextView)findViewById(R.id.first_number);
         tvNumber2 =(TextView)findViewById(R.id.second_number);
-        tvResult =(TextView)findViewById(R.id.result);
         tvOperator =(TextView)findViewById(R.id.operator);
-        tvEqual =(TextView)findViewById(R.id.equal);
 
         btn1=(Button)findViewById(R.id.btn_first_number);
         btn2=(Button)findViewById(R.id.btn_second_number);
@@ -70,192 +66,95 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn1.getText().toString());
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn2.getText().toString());
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn3.getText().toString());
             }
         });
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn4.getText().toString());
             }
         });
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn5.getText().toString());
             }
         });
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn6.getText().toString());
             }
         });
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn7.getText().toString());
             }
         });
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn8.getText().toString());
             }
         });
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
+                if (checkAndControlResult()) { return; }
                 setNumbersForTextViews(btn9.getText().toString());
-            }
-        });
-        btn_float.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkResult()) {
-                    return;
-                }
-                initFloatNumber(btn_float.getText().toString());
             }
         });
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvResult.getText() != "") {
-                    return;
-                }
-                if (tvOperator.getText()=="") {
-                    if (stringNumber1 == "") {
-                        return;
-                    }
-                    stringNumber1 += btn0.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.#################");
-                    tvNumber1.setText(df.format(Double.parseDouble(stringNumber1)));
 
-                }
-                else
-                {
-                    if (stringNumber2 == "") {
-                        return;
-                    }
-                    stringNumber2 += btn0.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##################");
-                    tvNumber2.setText(df.format(Double.parseDouble(stringNumber2)));
-                }
+                if (checkAndControlResult()) { return; }
+                setNumbersForTextViews(btn0.getText().toString());
             }
         });
+
+        btn_float.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkAndControlResult()) {
+                    return;
+                }
+                setFloatNumber(btn_float.getText().toString());
+            }
+        });
+
     }
 
-    private void calculate() {
+    private void pressCalculateNum() {
         btn_result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "") {
-                    tvEqual.setText("=");
+                checkAllViewsForShowResult();
+                if (checkAllViewsForShowResult()) {
 
-                    if (isSum) {
-                        Double n1 = Double.parseDouble(stringNumber1);
-                        Double n2 = Double.parseDouble(stringNumber2);
-                        resultString = n1 + n2 + "";
-                        if(resultString.endsWith(".0"))
-                        {
-                            resultString = resultString.substring(0, resultString.length() - 2);
-                        }
-                    } else if (isSub) {
-                        Double n1 = Double.parseDouble(stringNumber1);
-                        Double n2 = Double.parseDouble(stringNumber2);
-                        resultString = n1 - n2 + "";
-                        if(resultString.endsWith(".0"))
-                        {
-                            resultString = resultString.substring(0, resultString.length() - 2);
-                        }
-
-                    } else if (isMulti) {
-                        Double n1 = Double.parseDouble(stringNumber1);
-                        Double n2 = Double.parseDouble(stringNumber2);
-                        resultString = n1 * n2 + "";
-                        if(resultString.endsWith(".0"))
-                        {
-                            resultString = resultString.substring(0, resultString.length() - 2);
-                        }
-
-                    } else if (isDiv) {
-                        Double n1 = Double.parseDouble(stringNumber1);
-                        Double n2 = Double.parseDouble(stringNumber2);
-                        resultString = n1 / n2 + "";
-                        if(resultString.endsWith(".0"))
-                        {
-                            resultString = resultString.substring(0, resultString.length() - 2);
-                        }
-
-                    }
-                    else if (isPercent) {
-                        Double n1 = Double.parseDouble(stringNumber1);
-                        Double n2 = Double.parseDouble(stringNumber2);
-                        resultString = (n1 * n2)/100 + "";
-                        if(resultString.endsWith(".0"))
-                        {
-
-                            resultString = resultString.substring(0, resultString.length() - 2);
-                        }
-
-                    }
-                    else if (isPower) {
-                        Double n1 = Double.parseDouble(stringNumber1);
-                        Double n2 = Double.parseDouble(stringNumber2);
-                        resultString =Math.pow(n1,n2)+"";
-                        if(resultString.endsWith(".0"))
-                        {
-                            resultString = resultString.substring(0, resultString.length() - 2);
-                        }
-
-
-                    }
-                        DecimalFormat df = new DecimalFormat("#,###.##");
-                        tvResult.setText(df.format(Double.parseDouble(resultString)));
-                }
-                else
-                {
-                    return;
+                    calculateAndShowResult(stringNumber1, stringNumber2);
                 }
             }
         });
@@ -263,95 +162,97 @@ public class MainActivity extends AppCompatActivity {
         btn_sum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
-                {
-                    return;
-                }
-                tvOperator.setText(btn_sum.getText().toString());
-                isSum=true;
+                checkAllViewsForPressOperator();
+
+                if (checkAllViewsForPressOperator()) { return; }
+                setTextForOperatorTextView((String) btn_sum.getTag(),btn_sum.getText().toString());
             }
         });
         btn_power.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
-                {
-                    return;
-                }
-                tvOperator.setText("p");
-                isPower=true;
+                if (checkAllViewsForPressOperator()) { return; }
+                setTextForOperatorTextView((String) btn_power.getTag(),btn_power.getText().toString());
             }
         });
         btn_percent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
-                {
-                    return;
-                }
-                tvOperator.setText(btn_percent.getText().toString());
-                isPercent=true;
+                if (checkAllViewsForPressOperator()) { return; }
+                setTextForOperatorTextView((String) btn_percent.getTag(),btn_percent.getText().toString());
             }
         });
         btn_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
-                {
-                    return;
-                }
-                tvOperator.setText(btn_sub.getText().toString());
-                isSub=true;
+                if (checkAllViewsForPressOperator()) { return; }
+                setTextForOperatorTextView((String) btn_sub.getTag(),btn_sub.getText().toString());
             }
         });
         btn_multi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
-                {
-                    return;
-                }
-                tvOperator.setText(btn_multi.getText().toString());
-                isMulti=true;
+                if (checkAllViewsForPressOperator()) { return; }
+                setTextForOperatorTextView((String) btn_multi.getTag(),btn_multi.getText().toString());
             }
         });
         btn_div.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
-                {
-                    return;
-                }
-                tvOperator.setText(btn_div.getText().toString());
-                isDiv=true;
+                if (checkAllViewsForPressOperator()) { return; }
+                setTextForOperatorTextView((String) btn_div.getTag(),btn_div.getText().toString());
             }
         });
 
         btn_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stringNumber1 ="";
-                stringNumber2 ="";
-                tvNumber1.setText("");
-                tvNumber2.setText("");
-                tvOperator.setText("");
-                tvResult.setText("");
-                tvEqual.setText("");
-                isDiv=false;
-                isMulti=false;
-                isSub=false;
-                isSum=false;
-                isPercent=false;
-                isPower=false;
+                resetViews();
             }
         });
 
     }
 
+    private void calculateAndShowResult(String number1, String number2) {
+        Double n1 = Double.parseDouble(number1);
+        Double n2 = Double.parseDouble(number2);
+        if (isSum) {
+            resultString = n1 + n2 + "";
+        }
+        else if (isSub) {
+            resultString = n1 - n2 + "";
+
+        }
+        else if (isMulti) {
+            resultString = n1 * n2 + "";
+
+        } else if (isDiv) {
+            resultString = n1 / n2 + "";
+        }
+        else if (isPercent) {
+            resultString = (n1 * n2)/100 + "";
+
+        }
+        else if (isPower) {
+            resultString =Math.pow(n1,n2)+"";
+        }
+        checkAndControlResult();
+        resetViews();
+        stringNumber1=resultString;
+        tvNumber1.setText(decimalNumber(stringNumber1));
+    }
+
 
     // secondary methods
-    private boolean checkResult(){
-        if (tvResult.getText() != "") {
+    private boolean checkAndControlResult(){
+        if(resultString.endsWith(".0")) {
+            resultString = resultString.substring(0, resultString.length() - 2);
+        }
+        return false;
+    }
+
+    private boolean checkAllViewsForShowResult() {
+        if (tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "") {
             return true;
         }
         return false;
@@ -383,20 +284,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String decimalNumber(String number) {
-        DecimalFormat df = new DecimalFormat("#,###,###.###########");
+        DecimalFormat df = new DecimalFormat("#,###.####");
         return df.format(Double.parseDouble(number));
     }
 
-    private boolean checkIfFloatPressed(String number){
-        if (number.contains(".")) {
+    private boolean checkIfFloatPressed(String number,String floatNumber){
+        if (number.contains(floatNumber)) {
             return true;
         }
         return false;
     }
 
-    private void initFloatNumber(String floatSample) {
+    private void setFloatNumber(String floatSample) {
         if (checkOperator()) {
-            if (checkIfFloatPressed(stringNumber1)) {
+            if (checkIfFloatPressed(stringNumber1,floatSample)) {
                 return;
             }
             if (checkEmptyTextView(tvNumber1.getText().toString())) {
@@ -408,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
             tvNumber1.setText(stringNumber1);
         }
         else {
-            if (checkIfFloatPressed(stringNumber2)) {
+            if (checkIfFloatPressed(stringNumber2,floatSample)) {
                 return;
             }
             if (checkEmptyTextView(tvNumber2.getText().toString())) {
@@ -420,4 +321,86 @@ public class MainActivity extends AppCompatActivity {
             tvNumber2.setText(stringNumber2);
         }
     }
+
+    private void setTextForOperatorTextView(String operatorTag,String btnText) {
+        tvOperator.setText(btnText);
+        if (operatorTag.equals("+"))
+        {
+            isSum=true;
+            isDiv=false;
+            isMulti=false;
+            isSub=false;
+            isPercent=false;
+            isPower=false;
+        }
+        if (operatorTag.equals("-"))
+        {
+            isSum=false;
+            isDiv=false;
+            isMulti=false;
+            isSub=true;
+            isPercent=false;
+            isPower=false;
+        }
+        if (operatorTag.equals("*"))
+        {
+            isSum=false;
+            isDiv=false;
+            isMulti=true;
+            isSub=false;
+            isPercent=false;
+            isPower=false;
+        }
+        if (operatorTag.equals("/"))
+        {
+            isSum=false;
+            isDiv=true;
+            isMulti=false;
+            isSub=false;
+            isPercent=false;
+            isPower=false;
+        }
+        if (operatorTag.equals("percent"))
+        {
+            isSum=false;
+            isDiv=false;
+            isMulti=false;
+            isSub=false;
+            isPercent=true;
+            isPower=false;
+        }
+        if (operatorTag.equals("power"))
+        {
+            isSum=false;
+            isDiv=false;
+            isMulti=false;
+            isSub=false;
+            isPercent=false;
+            isPower=true;
+        }
+
+    }
+
+    private boolean checkAllViewsForPressOperator() {
+        if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void resetViews() {
+        stringNumber1 ="";
+        stringNumber2 ="";
+        tvNumber1.setText("");
+        tvNumber2.setText("");
+        tvOperator.setText("");
+        isDiv=false;
+        isMulti=false;
+        isSub=false;
+        isSum=false;
+        isPercent=false;
+        isPower=false;
+    }
+
 }
