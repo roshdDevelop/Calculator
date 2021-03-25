@@ -3,8 +3,8 @@ package com.my.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -12,7 +12,8 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
 
     TextView tvNumber1, tvNumber2, tvOperator;
-    Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0,btn_sum,btn_sub,btn_div,btn_multi,btn_result,btn_clear,btn_percent,btn_float,btn_power;
+    Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0, btnSum, btnSub, btnDiv, btnMulti, btnResult, btnClear, btnPercent, btnFloat, btnPower;
+    ImageButton imgBtnBackSpace;
 
     String stringNumber1 ="", stringNumber2 ="";
     String resultString ="";
@@ -51,165 +52,116 @@ public class MainActivity extends AppCompatActivity {
         btn8=(Button)findViewById(R.id.btn_eight_number);
         btn9=(Button)findViewById(R.id.btn_nine_number);
         btn0=(Button)findViewById(R.id.btn_zero_number);
-        btn_sum=(Button)findViewById(R.id.btn_sum);
-        btn_sub=(Button)findViewById(R.id.btn_sub);
-        btn_multi=(Button)findViewById(R.id.btn_multi);
-        btn_div=(Button)findViewById(R.id.btn_div);
-        btn_clear=(Button)findViewById(R.id.btn_clear);
-        btn_result=(Button)findViewById(R.id.btn_result);
-        btn_percent=(Button)findViewById(R.id.btn_percent);
-        btn_float=(Button)findViewById(R.id.btn_float);
-        btn_power=(Button)findViewById(R.id.btn_power);
+        btnSum =(Button)findViewById(R.id.btn_sum);
+        btnSub =(Button)findViewById(R.id.btn_sub);
+        btnMulti =(Button)findViewById(R.id.btn_multi);
+        btnDiv =(Button)findViewById(R.id.btn_div);
+        btnClear =(Button)findViewById(R.id.btn_clear);
+        btnResult =(Button)findViewById(R.id.btn_result);
+        btnPercent =(Button)findViewById(R.id.btn_percent);
+        btnFloat =(Button)findViewById(R.id.btn_float);
+        btnPower =(Button)findViewById(R.id.btn_power);
+        imgBtnBackSpace =(ImageButton) findViewById(R.id.btn_back_space);
     }
 
     private void pressNumButton() {
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn1.getText().toString());
-            }
+        btn1.setOnClickListener(view -> {
+            setNumbersForTextViews(btn1.getText().toString());
         });
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn2.getText().toString());
-            }
+        btn2.setOnClickListener(view -> {
+            setNumbersForTextViews(btn2.getText().toString());
         });
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn3.getText().toString());
-            }
+        btn3.setOnClickListener(view -> {
+            setNumbersForTextViews(btn3.getText().toString());
         });
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn4.getText().toString());
-            }
+        btn4.setOnClickListener(view -> {
+            setNumbersForTextViews(btn4.getText().toString());
         });
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn5.getText().toString());
-            }
+        btn5.setOnClickListener(view -> {
+            setNumbersForTextViews(btn5.getText().toString());
         });
-        btn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn6.getText().toString());
-            }
+        btn6.setOnClickListener(view -> {
+            setNumbersForTextViews(btn6.getText().toString());
         });
-        btn7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn7.getText().toString());
-            }
+        btn7.setOnClickListener(view -> {
+            setNumbersForTextViews(btn7.getText().toString());
         });
-        btn8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn8.getText().toString());
-            }
+        btn8.setOnClickListener(view -> {
+            setNumbersForTextViews(btn8.getText().toString());
         });
-        btn9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn9.getText().toString());
-            }
+        btn9.setOnClickListener(view -> {
+            setNumbersForTextViews(btn9.getText().toString());
         });
-        btn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (checkAndControlResult()) { return; }
-                setNumbersForTextViews(btn0.getText().toString());
-            }
+        btn0.setOnClickListener(view -> {
+            setNumbersForTextViews(btn0.getText().toString());
         });
 
-        btn_float.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAndControlResult()) {
-                    return;
-                }
-                setFloatNumber(btn_float.getText().toString());
-            }
+        btnFloat.setOnClickListener(view-> {
+            setFloatNumber(btnFloat.getText().toString());
         });
 
     }
 
     private void pressCalculateNum() {
-        btn_result.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkAllViewsForShowResult();
-                if (checkAllViewsForShowResult()) {
+        btnResult.setOnClickListener(view -> {
+            if (checkAllViewsForShowResult()) {
+                calculateAndShowResult(stringNumber1, stringNumber2);
+            }
+        });
+        btnSum.setOnClickListener(view -> {
+            checkAllViewsForPressOperator();
 
-                    calculateAndShowResult(stringNumber1, stringNumber2);
+            if (checkAllViewsForPressOperator()) { return; }
+            setTextForOperatorTextView((String) btnSum.getTag(), btnSum.getText().toString());
+        });
+        btnPower.setOnClickListener(view -> {
+            if (checkAllViewsForPressOperator()) { return; }
+            setTextForOperatorTextView((String) btnPower.getTag(), btnPower.getText().toString());
+        });
+        btnPercent.setOnClickListener(view -> {
+            if (checkAllViewsForPressOperator()) { return; }
+            setTextForOperatorTextView((String) btnPercent.getTag(), btnPercent.getText().toString());
+        });
+        btnSub.setOnClickListener(view -> {
+            if (checkAllViewsForPressOperator()) { return; }
+            setTextForOperatorTextView((String) btnSub.getTag(), btnSub.getText().toString());
+        });
+        btnMulti.setOnClickListener(view -> {
+            if (checkAllViewsForPressOperator()) { return; }
+            setTextForOperatorTextView((String) btnMulti.getTag(), btnMulti.getText().toString());
+        });
+        btnDiv.setOnClickListener(view -> {
+            if (checkAllViewsForPressOperator()) { return; }
+            setTextForOperatorTextView((String) btnDiv.getTag(), btnDiv.getText().toString());
+        });
+
+        btnClear.setOnClickListener(view -> resetViews());
+
+        imgBtnBackSpace.setOnClickListener(view -> {
+            checkViewsAndBackSpaceAct();
+        });
+
+    }
+
+    private void checkViewsAndBackSpaceAct() {
+        if (!checkOperatorIfFull()) {
+            if (tvNumber2.getText().toString()!=""){
+                if (stringNumber2.length()==0) {
+                    tvOperator.setText("");
+                    return;
                 }
+                stringNumber2 = stringNumber2.substring(0, stringNumber2.length() - 1);
+                tvNumber2.setText(stringNumber2);
             }
-        });
 
-        btn_sum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkAllViewsForPressOperator();
-
-                if (checkAllViewsForPressOperator()) { return; }
-                setTextForOperatorTextView((String) btn_sum.getTag(),btn_sum.getText().toString());
+        }
+        else {
+            if (stringNumber1.length()==0) {
+                return;
             }
-        });
-        btn_power.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAllViewsForPressOperator()) { return; }
-                setTextForOperatorTextView((String) btn_power.getTag(),btn_power.getText().toString());
-            }
-        });
-        btn_percent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAllViewsForPressOperator()) { return; }
-                setTextForOperatorTextView((String) btn_percent.getTag(),btn_percent.getText().toString());
-            }
-        });
-        btn_sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAllViewsForPressOperator()) { return; }
-                setTextForOperatorTextView((String) btn_sub.getTag(),btn_sub.getText().toString());
-            }
-        });
-        btn_multi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAllViewsForPressOperator()) { return; }
-                setTextForOperatorTextView((String) btn_multi.getTag(),btn_multi.getText().toString());
-            }
-        });
-        btn_div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAllViewsForPressOperator()) { return; }
-                setTextForOperatorTextView((String) btn_div.getTag(),btn_div.getText().toString());
-            }
-        });
-
-        btn_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                resetViews();
-            }
-        });
+            stringNumber1 = stringNumber1.substring(0, stringNumber1.length() - 1);
+            tvNumber1.setText(stringNumber1);
+        }
 
     }
 
@@ -236,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         else if (isPower) {
             resultString =Math.pow(n1,n2)+"";
         }
-        checkAndControlResult();
+        controlResult();
         resetViews();
         stringNumber1=resultString;
         tvNumber1.setText(decimalNumber(stringNumber1));
@@ -244,11 +196,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     // secondary methods
-    private boolean checkAndControlResult(){
+    private void controlResult(){
         if(resultString.endsWith(".0")) {
             resultString = resultString.substring(0, resultString.length() - 2);
         }
-        return false;
     }
 
     private boolean checkAllViewsForShowResult() {
@@ -265,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean checkOperator(){
+    private boolean checkOperatorIfFull(){
         if (tvOperator.getText()!="") {
             return false;
         }
@@ -273,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNumbersForTextViews(String btnNumber) {
-        if (checkOperator()) {
+        if (checkOperatorIfFull()) {
             stringNumber1 += btnNumber;
             tvNumber1.setText(decimalNumber(stringNumber1));
         }
@@ -296,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFloatNumber(String floatSample) {
-        if (checkOperator()) {
+        if (checkOperatorIfFull()) {
             if (checkIfFloatPressed(stringNumber1,floatSample)) {
                 return;
             }
