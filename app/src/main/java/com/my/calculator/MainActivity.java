@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
-    TextView number1,number2,result,operator,equal;
+
+    TextView tvNumber1, tvNumber2, tvResult, tvOperator, tvEqual;
     Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0,btn_sum,btn_sub,btn_div,btn_multi,btn_result,btn_clear,btn_percent,btn_float,btn_power;
-    String number_1="",number_2="";
-    String result_number="";
-    String zero="0";
-    String s="2220";
+
+    String stringNumber1 ="", stringNumber2 ="";
+    String resultString ="";
+    String zeroString ="0";
+
     boolean isSum=false;
     boolean isSub=false;
     boolean isMulti=false;
@@ -36,422 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void calculate() {
-        btn_result.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText() != "" && number2.getText() != "" && operator.getText() != "") {
-                    equal.setText("=");
-
-                    if (isSum) {
-                        Double n1 = Double.parseDouble(number_1);
-                        Double n2 = Double.parseDouble(number_2);
-                        result_number = n1 + n2 + "";
-                        if(result_number.endsWith(".0"))
-                        {
-                            result_number=result_number.substring(0, result_number.length() - 2);
-                        }
-                    } else if (isSub) {
-                        Double n1 = Double.parseDouble(number_1);
-                        Double n2 = Double.parseDouble(number_2);
-                        result_number = n1 - n2 + "";
-                        if(result_number.endsWith(".0"))
-                        {
-                            result_number=result_number.substring(0, result_number.length() - 2);
-                        }
-
-                    } else if (isMulti) {
-                        Double n1 = Double.parseDouble(number_1);
-                        Double n2 = Double.parseDouble(number_2);
-                        result_number = n1 * n2 + "";
-                        if(result_number.endsWith(".0"))
-                        {
-                            result_number=result_number.substring(0, result_number.length() - 2);
-                        }
-
-                    } else if (isDiv) {
-                        Double n1 = Double.parseDouble(number_1);
-                        Double n2 = Double.parseDouble(number_2);
-                        result_number = n1 / n2 + "";
-                        if(result_number.endsWith(".0"))
-                        {
-                            result_number=result_number.substring(0, result_number.length() - 2);
-                        }
-
-                    }
-                    else if (isPercent) {
-                        Double n1 = Double.parseDouble(number_1);
-                        Double n2 = Double.parseDouble(number_2);
-                        result_number = (n1 * n2)/100 + "";
-                        if(result_number.endsWith(".0"))
-                        {
-
-                            result_number=result_number.substring(0, result_number.length() - 2);
-                        }
-
-                    }
-                    else if (isPower) {
-                        Double n1 = Double.parseDouble(number_1);
-                        Double n2 = Double.parseDouble(number_2);
-                        result_number=Math.pow(n1,n2)+"";
-                        if(result_number.endsWith(".0"))
-                        {
-                            result_number=result_number.substring(0, result_number.length() - 2);
-                        }
-
-
-                    }
-                        DecimalFormat df = new DecimalFormat("#,###.##");
-                        result.setText(df.format(Double.parseDouble(result_number)));
-                }
-                else
-                {
-                    return;
-                }
-            }
-        });
-
-        btn_sum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText()==""||number_1.equals(".")||number_2.equals(".")||number1.getText() != "" && number2.getText() != "" && operator.getText() != "")
-                {
-                    return;
-                }
-                operator.setText(btn_sum.getText().toString());
-                isSum=true;
-            }
-        });
-        btn_power.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText()==""||number_1.equals(".")||number_2.equals(".")||number1.getText() != "" && number2.getText() != "" && operator.getText() != "")
-                {
-                    return;
-                }
-                operator.setText("p");
-                isPower=true;
-            }
-        });
-        btn_percent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText()==""||number_1.equals(".")||number_2.equals(".")||number1.getText() != "" && number2.getText() != "" && operator.getText() != "")
-                {
-                    return;
-                }
-                operator.setText(btn_percent.getText().toString());
-                isPercent=true;
-            }
-        });
-        btn_sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText()==""||number_1.equals(".")||number_2.equals(".")||number1.getText() != "" && number2.getText() != "" && operator.getText() != "")
-                {
-                    return;
-                }
-                operator.setText(btn_sub.getText().toString());
-                isSub=true;
-            }
-        });
-        btn_multi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText()==""||number_1.equals(".")||number_2.equals(".")||number1.getText() != "" && number2.getText() != "" && operator.getText() != "")
-                {
-                    return;
-                }
-                operator.setText(btn_multi.getText().toString());
-                isMulti=true;
-            }
-        });
-        btn_div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText()==""||number_1.equals(".")||number_2.equals(".")||number1.getText() != "" && number2.getText() != "" && operator.getText() != "")
-                {
-                    return;
-                }
-                operator.setText(btn_div.getText().toString());
-                isDiv=true;
-            }
-        });
-
-        btn_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                number_1="";
-                number_2="";
-                number1.setText("");
-                number2.setText("");
-                operator.setText("");
-                result.setText("");
-                equal.setText("");
-                isDiv=false;
-                isMulti=false;
-                isSub=false;
-                isSum=false;
-                isPercent=false;
-                isPower=false;
-            }
-        });
-
-    }
-
-    private void pressNumButton() {
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn1.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###########");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-                }
-                else
-                {
-                    number_2 += btn1.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###########");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-
-                }
-            }
-        });
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn2.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###########");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn2.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###########");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn3.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##########");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-                }
-                else
-                {
-                    number_2 += btn3.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###########");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-
-                if (operator.getText()=="") {
-                    number_1 += btn4.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.############");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn4.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##########");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn5.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##########");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn5.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##########");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn6.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.#############");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn6.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.#############");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn7.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.#############");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn7.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###############");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn8.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.###############");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn8.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.################");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    number_1 += btn9.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##############");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    number_2 += btn9.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.#################");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-        btn_float.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (number1.getText() != "" && number2.getText() != "" && result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    if (number_1.contains(".")) {
-                        return;
-                    }
-                    if (number1.getText()=="") {
-
-                        number_1 += zero.concat(btn_float.getText().toString());
-                    }
-                    else{
-                        number_1 += btn_float.getText().toString();
-
-                    }
-
-                    number1.setText(number_1);
-                }
-                else
-                {
-                    if (number_2.contains(".")) {
-                        return;
-                    }
-                    if (number2.getText()=="") {
-                        number_2 += zero.concat(btn_float.getText().toString());
-                    }
-                    else{
-                        number_2 += btn_float.getText().toString();
-                    }
-                    number2.setText(number_2);
-                }
-            }
-        });
-        btn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (result.getText() != "") {
-                    return;
-                }
-                if (operator.getText()=="") {
-                    if (number_1 == "") {
-                        return;
-                    }
-                    number_1 += btn0.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.#################");
-                    number1.setText(df.format(Double.parseDouble(number_1)));
-
-                }
-                else
-                {
-                    if (number_2 == "") {
-                        return;
-                    }
-                    number_2 += btn0.getText().toString();
-                    DecimalFormat df = new DecimalFormat("#,###,###.##################");
-                    number2.setText(df.format(Double.parseDouble(number_2)));
-                }
-            }
-        });
-    }
-
-
-
+    //main methods
     private void init() {
-        number1=(TextView)findViewById(R.id.first_number);
-        number2=(TextView)findViewById(R.id.second_number);
-        result=(TextView)findViewById(R.id.result);
-        operator=(TextView)findViewById(R.id.operator);
-        equal=(TextView)findViewById(R.id.equal);
+        tvNumber1=(TextView)findViewById(R.id.first_number);
+        tvNumber2 =(TextView)findViewById(R.id.second_number);
+        tvResult =(TextView)findViewById(R.id.result);
+        tvOperator =(TextView)findViewById(R.id.operator);
+        tvEqual =(TextView)findViewById(R.id.equal);
 
         btn1=(Button)findViewById(R.id.btn_first_number);
         btn2=(Button)findViewById(R.id.btn_second_number);
@@ -472,5 +64,360 @@ public class MainActivity extends AppCompatActivity {
         btn_percent=(Button)findViewById(R.id.btn_percent);
         btn_float=(Button)findViewById(R.id.btn_float);
         btn_power=(Button)findViewById(R.id.btn_power);
+    }
+
+    private void pressNumButton() {
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn1.getText().toString());
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn2.getText().toString());
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn3.getText().toString());
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn4.getText().toString());
+            }
+        });
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn5.getText().toString());
+            }
+        });
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn6.getText().toString());
+            }
+        });
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn7.getText().toString());
+            }
+        });
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn8.getText().toString());
+            }
+        });
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                setNumbersForTextViews(btn9.getText().toString());
+            }
+        });
+        btn_float.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkResult()) {
+                    return;
+                }
+                initFloatNumber(btn_float.getText().toString());
+            }
+        });
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvResult.getText() != "") {
+                    return;
+                }
+                if (tvOperator.getText()=="") {
+                    if (stringNumber1 == "") {
+                        return;
+                    }
+                    stringNumber1 += btn0.getText().toString();
+                    DecimalFormat df = new DecimalFormat("#,###,###.#################");
+                    tvNumber1.setText(df.format(Double.parseDouble(stringNumber1)));
+
+                }
+                else
+                {
+                    if (stringNumber2 == "") {
+                        return;
+                    }
+                    stringNumber2 += btn0.getText().toString();
+                    DecimalFormat df = new DecimalFormat("#,###,###.##################");
+                    tvNumber2.setText(df.format(Double.parseDouble(stringNumber2)));
+                }
+            }
+        });
+    }
+
+    private void calculate() {
+        btn_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "") {
+                    tvEqual.setText("=");
+
+                    if (isSum) {
+                        Double n1 = Double.parseDouble(stringNumber1);
+                        Double n2 = Double.parseDouble(stringNumber2);
+                        resultString = n1 + n2 + "";
+                        if(resultString.endsWith(".0"))
+                        {
+                            resultString = resultString.substring(0, resultString.length() - 2);
+                        }
+                    } else if (isSub) {
+                        Double n1 = Double.parseDouble(stringNumber1);
+                        Double n2 = Double.parseDouble(stringNumber2);
+                        resultString = n1 - n2 + "";
+                        if(resultString.endsWith(".0"))
+                        {
+                            resultString = resultString.substring(0, resultString.length() - 2);
+                        }
+
+                    } else if (isMulti) {
+                        Double n1 = Double.parseDouble(stringNumber1);
+                        Double n2 = Double.parseDouble(stringNumber2);
+                        resultString = n1 * n2 + "";
+                        if(resultString.endsWith(".0"))
+                        {
+                            resultString = resultString.substring(0, resultString.length() - 2);
+                        }
+
+                    } else if (isDiv) {
+                        Double n1 = Double.parseDouble(stringNumber1);
+                        Double n2 = Double.parseDouble(stringNumber2);
+                        resultString = n1 / n2 + "";
+                        if(resultString.endsWith(".0"))
+                        {
+                            resultString = resultString.substring(0, resultString.length() - 2);
+                        }
+
+                    }
+                    else if (isPercent) {
+                        Double n1 = Double.parseDouble(stringNumber1);
+                        Double n2 = Double.parseDouble(stringNumber2);
+                        resultString = (n1 * n2)/100 + "";
+                        if(resultString.endsWith(".0"))
+                        {
+
+                            resultString = resultString.substring(0, resultString.length() - 2);
+                        }
+
+                    }
+                    else if (isPower) {
+                        Double n1 = Double.parseDouble(stringNumber1);
+                        Double n2 = Double.parseDouble(stringNumber2);
+                        resultString =Math.pow(n1,n2)+"";
+                        if(resultString.endsWith(".0"))
+                        {
+                            resultString = resultString.substring(0, resultString.length() - 2);
+                        }
+
+
+                    }
+                        DecimalFormat df = new DecimalFormat("#,###.##");
+                        tvResult.setText(df.format(Double.parseDouble(resultString)));
+                }
+                else
+                {
+                    return;
+                }
+            }
+        });
+
+        btn_sum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+                {
+                    return;
+                }
+                tvOperator.setText(btn_sum.getText().toString());
+                isSum=true;
+            }
+        });
+        btn_power.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+                {
+                    return;
+                }
+                tvOperator.setText("p");
+                isPower=true;
+            }
+        });
+        btn_percent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+                {
+                    return;
+                }
+                tvOperator.setText(btn_percent.getText().toString());
+                isPercent=true;
+            }
+        });
+        btn_sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+                {
+                    return;
+                }
+                tvOperator.setText(btn_sub.getText().toString());
+                isSub=true;
+            }
+        });
+        btn_multi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+                {
+                    return;
+                }
+                tvOperator.setText(btn_multi.getText().toString());
+                isMulti=true;
+            }
+        });
+        btn_div.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvNumber1.getText()==""|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != "" && tvNumber2.getText() != "" && tvOperator.getText() != "")
+                {
+                    return;
+                }
+                tvOperator.setText(btn_div.getText().toString());
+                isDiv=true;
+            }
+        });
+
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stringNumber1 ="";
+                stringNumber2 ="";
+                tvNumber1.setText("");
+                tvNumber2.setText("");
+                tvOperator.setText("");
+                tvResult.setText("");
+                tvEqual.setText("");
+                isDiv=false;
+                isMulti=false;
+                isSub=false;
+                isSum=false;
+                isPercent=false;
+                isPower=false;
+            }
+        });
+
+    }
+
+
+    // secondary methods
+    private boolean checkResult(){
+        if (tvResult.getText() != "") {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkEmptyTextView(String number){
+        if (number == "") {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkOperator(){
+        if (tvOperator.getText()!="") {
+            return false;
+        }
+        return true;
+    }
+
+    private void setNumbersForTextViews(String btnNumber) {
+        if (checkOperator()) {
+            stringNumber1 += btnNumber;
+            tvNumber1.setText(decimalNumber(stringNumber1));
+        }
+        else {
+            stringNumber2 += btnNumber;
+            tvNumber2.setText(decimalNumber(stringNumber2));
+        }
+    }
+
+    private String decimalNumber(String number) {
+        DecimalFormat df = new DecimalFormat("#,###,###.###########");
+        return df.format(Double.parseDouble(number));
+    }
+
+    private boolean checkIfFloatPressed(String number){
+        if (number.contains(".")) {
+            return true;
+        }
+        return false;
+    }
+
+    private void initFloatNumber(String floatSample) {
+        if (checkOperator()) {
+            if (checkIfFloatPressed(stringNumber1)) {
+                return;
+            }
+            if (checkEmptyTextView(tvNumber1.getText().toString())) {
+                stringNumber1 += zeroString.concat(floatSample);
+            }
+            else{
+                stringNumber1 += floatSample;
+            }
+            tvNumber1.setText(stringNumber1);
+        }
+        else {
+            if (checkIfFloatPressed(stringNumber2)) {
+                return;
+            }
+            if (checkEmptyTextView(tvNumber2.getText().toString())) {
+                stringNumber2 += zeroString.concat(floatSample);
+            }
+            else{
+                stringNumber2 += floatSample;
+            }
+            tvNumber2.setText(stringNumber2);
+        }
     }
 }
