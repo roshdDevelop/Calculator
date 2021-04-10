@@ -147,6 +147,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    // secondary methods
+    private void controlAndAnimateResult(){
+        if(resultString.endsWith(".0")) {
+            resultString = resultString.substring(0, resultString.length() - 2);
+        }
+        stringNumber1=resultString;
+        animateResult();
+
+    }
+
     private void backSpaceAct() {
         if (!OperatorTextViewIsEmpty()) {
             if (tvNumber2.getText().toString()!=empty){
@@ -197,17 +209,6 @@ public class MainActivity extends AppCompatActivity {
 
         resetViews();
         controlAndAnimateResult();
-    }
-
-
-    // secondary methods
-    private void controlAndAnimateResult(){
-        if(resultString.endsWith(".0")) {
-            resultString = resultString.substring(0, resultString.length() - 2);
-        }
-        stringNumber1=resultString;
-        animateResult();
-
     }
 
     private void animateResult() {
