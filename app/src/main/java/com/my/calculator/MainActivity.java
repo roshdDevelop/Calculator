@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
-        pressNumButton();
-        pressCalculateNum();
+        pressButtons();
     }
 
     //main methods
@@ -68,119 +67,143 @@ public class MainActivity extends AppCompatActivity {
         imgBtnBackSpace =(ImageButton) findViewById(R.id.btn_back_space);
     }
 
-    private void pressNumButton() {
+    private void pressButtons() {
         btn1.setOnClickListener(view -> {
-            setNumbersForTextViews(btn1.getText().toString());
+            setNumbersForTextViews(btn1.getText().toString());     log();
         });
         btn2.setOnClickListener(view -> {
-            setNumbersForTextViews(btn2.getText().toString());
+            setNumbersForTextViews(btn2.getText().toString());     log();
         });
         btn3.setOnClickListener(view -> {
-            setNumbersForTextViews(btn3.getText().toString());
+            setNumbersForTextViews(btn3.getText().toString());     log();
         });
         btn4.setOnClickListener(view -> {
-            setNumbersForTextViews(btn4.getText().toString());
+            setNumbersForTextViews(btn4.getText().toString());     log();
         });
         btn5.setOnClickListener(view -> {
-            setNumbersForTextViews(btn5.getText().toString());
+            setNumbersForTextViews(btn5.getText().toString());     log();
         });
         btn6.setOnClickListener(view -> {
-            setNumbersForTextViews(btn6.getText().toString());
+            setNumbersForTextViews(btn6.getText().toString());     log();
         });
         btn7.setOnClickListener(view -> {
-            setNumbersForTextViews(btn7.getText().toString());
+            setNumbersForTextViews(btn7.getText().toString());     log();
         });
         btn8.setOnClickListener(view -> {
-            setNumbersForTextViews(btn8.getText().toString());
+            setNumbersForTextViews(btn8.getText().toString());     log();
         });
         btn9.setOnClickListener(view -> {
-            setNumbersForTextViews(btn9.getText().toString());
+            setNumbersForTextViews(btn9.getText().toString());     log();
         });
         btn0.setOnClickListener(view -> {
-            setNumbersForTextViews(btn0.getText().toString());
+            setNumbersForTextViews(btn0.getText().toString());     log();
         });
+
 
         btnFloat.setOnClickListener(view-> {
-            setFloatNumber(btnFloat.getText().toString());
+            setFloatNumber(btnFloat.getText().toString());        log();
         });
-
-    }
-
-    private void pressCalculateNum() {
         btnResult.setOnClickListener(view -> {
-            if (checkAllViewsForShowResult()) {
-                calculateAndShowResult(stringNumber1, stringNumber2);
+            if (ifAllViewsReadyForShowResult()) {
+                calculateAndShowResult(stringNumber1, stringNumber2);     log();
             }
         });
         btnSum.setOnClickListener(view -> {
-            checkAllViewsForPressOperator();
-
             if (checkAllViewsForPressOperator()) { return; }
-            setTextForOperatorTextView((String) btnSum.getTag(), btnSum.getText().toString());
+            setOperator((String) btnSum.getTag(), btnSum.getText().toString());
         });
         btnPower.setOnClickListener(view -> {
             if (checkAllViewsForPressOperator()) { return; }
-            setTextForOperatorTextView((String) btnPower.getTag(), btnPower.getText().toString());
+            setOperator((String) btnPower.getTag(), btnPower.getText().toString());
         });
         btnPercent.setOnClickListener(view -> {
             if (checkAllViewsForPressOperator()) { return; }
-            setTextForOperatorTextView((String) btnPercent.getTag(), btnPercent.getText().toString());
+            setOperator((String) btnPercent.getTag(), btnPercent.getText().toString());
         });
         btnSub.setOnClickListener(view -> {
             if (checkAllViewsForPressOperator()) { return; }
-            setTextForOperatorTextView((String) btnSub.getTag(), btnSub.getText().toString());
+            setOperator((String) btnSub.getTag(), btnSub.getText().toString());
         });
         btnMulti.setOnClickListener(view -> {
             if (checkAllViewsForPressOperator()) { return; }
-            setTextForOperatorTextView((String) btnMulti.getTag(), btnMulti.getText().toString());
+            setOperator((String) btnMulti.getTag(), btnMulti.getText().toString());
         });
         btnDiv.setOnClickListener(view -> {
             if (checkAllViewsForPressOperator()) { return; }
-            setTextForOperatorTextView((String) btnDiv.getTag(), btnDiv.getText().toString());
+            setOperator((String) btnDiv.getTag(), btnDiv.getText().toString());
         });
 
-        btnClear.setOnClickListener(view -> resetViews());
+        btnClear.setOnClickListener(view ->  {
+            resetViews();     log();
+        });
 
         imgBtnBackSpace.setOnClickListener(view -> {
-            backSpaceAct();
+            backSpaceAct();     log();
+
         });
 
     }
 
+    private void log() {
+        Log.d("TAG", "Str1 " + stringNumber1);
+        Log.d("TAG", "Str2 " + stringNumber2);
+        Log.d("TAG", "result " + resultString);
+    }
 
 
     // secondary methods
-    private void controlAndAnimateResult(){
-        if(resultString.endsWith(".0")) {
-            resultString = resultString.substring(0, resultString.length() - 2);
-        }
-        stringNumber1=resultString;
-        animateResult();
-
-    }
-
-    private void backSpaceAct() {
-        if (!OperatorTextViewIsEmpty()) {
-            if (tvNumber2.getText().toString()!=empty){
-                if (stringNumber2.length()==0) {
-                    tvNumber2.setText(empty);
-                    tvOperator.setText(empty);
-                    return;
-                }
-                stringNumber2 = stringNumber2.substring(0, stringNumber2.length() - 1);
-                tvNumber2.setText(stringNumber2);
-
-            }
+    private void setNumbersForTextViews(String btnNumber) {
+        if (!ifOperatorClick()) {
+            stringNumber1 += btnNumber;
+            tvNumber1.setText(decimalNumber(stringNumber1));
         }
         else {
-            if (stringNumber1.length()==0) {
-                tvNumber1.setText(empty);
+            stringNumber2 += btnNumber;
+            tvNumber2.setText(decimalNumber(stringNumber2));
+        }
+    }
+
+    private boolean ifOperatorClick(){
+        if (tvOperator.getText()!=empty) {
+            return true;
+        }
+        return false;
+    }
+
+    private void setFloatNumber(String floatSample) {
+        if (!ifOperatorClick()) {
+            if (stringNumber1.contains(floatSample)) {
                 return;
             }
-            stringNumber1 = stringNumber1.substring(0, stringNumber1.length() - 1);
+            if (stringNumber1.isEmpty()) {
+                stringNumber1 += zeroString.concat(floatSample);
+            }
+            else{
+                stringNumber1 += floatSample;
+            }
             tvNumber1.setText(stringNumber1);
         }
+        else {
+            if (stringNumber2.contains(floatSample)) {
+                return;
+            }
+            if (stringNumber2.isEmpty()) {
+                stringNumber2 += zeroString.concat(floatSample);
+            }
+            else{
+                stringNumber2 += floatSample;
+            }
+            tvNumber2.setText(stringNumber2);
+        }
+    }
 
+
+
+    private boolean ifAllViewsReadyForShowResult() {
+        if (!stringNumber1.isEmpty() && !stringNumber2.isEmpty() && tvOperator.getText() != empty) {
+            return true;
+        }
+        return false;
     }
 
     private void calculateAndShowResult(String number1, String number2) {
@@ -211,7 +234,16 @@ public class MainActivity extends AppCompatActivity {
         controlAndAnimateResult();
     }
 
-    private void animateResult() {
+    private void controlAndAnimateResult(){
+        if(resultString.endsWith(".0")) {
+            resultString = resultString.substring(0, resultString.length() - 2);
+        }
+        stringNumber1=resultString;
+        animateResult(stringNumber1);
+
+    }
+
+    private void animateResult(String result) {
         ObjectAnimator scaleX= ObjectAnimator.ofFloat(
           tvNumber1,
                 "scaleX",
@@ -226,141 +258,83 @@ public class MainActivity extends AppCompatActivity {
         );
         scaleY.setDuration(500);
         scaleY.start();
-        tvNumber1.setText(decimalNumber(stringNumber1));
+        tvNumber1.setText(decimalNumber(result));
     }
 
-    private boolean checkAllViewsForShowResult() {
-        if (tvNumber1.getText() != empty && tvNumber2.getText() != empty && tvOperator.getText() != empty) {
-            return true;
-        }
-        return false;
-    }
 
-    private boolean checkEmptyTextView(String number){
-        if (number == empty) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean OperatorTextViewIsEmpty(){
-        if (tvOperator.getText()==empty) {
-            return true;
-        }
-       return false;
-    }
-
-    private void setNumbersForTextViews(String btnNumber) {
-        if (OperatorTextViewIsEmpty()) {
-            stringNumber1 += btnNumber;
-            tvNumber1.setText(decimalNumber(stringNumber1));
-        }
-        else {
-            stringNumber2 += btnNumber;
-            tvNumber2.setText(decimalNumber(stringNumber2));
-        }
-    }
 
     private String decimalNumber(String number) {
         DecimalFormat df = new DecimalFormat("#,###.####");
         return df.format(Double.parseDouble(number));
     }
 
-    private boolean checkIfFloatPressed(String number,String floatNumber){
-        if (number.contains(floatNumber)) {
-            return true;
-        }
-        return false;
-    }
-
-    private void setFloatNumber(String floatSample) {
-        if (OperatorTextViewIsEmpty()) {
-            if (checkIfFloatPressed(stringNumber1,floatSample)) {
+    private void backSpaceAct() {
+        if (ifOperatorClick()) {
+            if (stringNumber2 == empty) {
+                tvOperator.setText(empty);
+            }
+            if (tvNumber2.getText().toString() != empty) {
+                if (stringNumber2.length() == 1) {
+                    stringNumber2 = empty;
+                    tvNumber2.setText(stringNumber2);
+                    return;
+                } else {
+                    stringNumber2 = stringNumber2.substring(0, stringNumber2.length() - 1);
+                    tvNumber2.setText(decimalNumber(stringNumber2));
+                }
+            }
+        } else {
+            if (stringNumber1 == empty) {
                 return;
             }
-            if (checkEmptyTextView(tvNumber1.getText().toString())) {
-                stringNumber1 += zeroString.concat(floatSample);
-            }
-            else{
-                stringNumber1 += floatSample;
-            }
-            tvNumber1.setText(stringNumber1);
-        }
-        else {
-            if (checkIfFloatPressed(stringNumber2,floatSample)) {
+            if (stringNumber1.length() == 1) {
+                stringNumber1 = empty;
+                tvNumber1.setText(stringNumber1);
                 return;
             }
-            if (checkEmptyTextView(tvNumber2.getText().toString())) {
-                stringNumber2 += zeroString.concat(floatSample);
+            stringNumber1 = stringNumber1.substring(0, stringNumber1.length() - 1);
+            try {
+                tvNumber1.setText(decimalNumber(stringNumber1));
+            }catch (NumberFormatException e){
+                stringNumber1=empty;
+                tvNumber1.setText(stringNumber1);
             }
-            else{
-                stringNumber2 += floatSample;
-            }
-            tvNumber2.setText(stringNumber2);
+
         }
+
     }
 
-    private void setTextForOperatorTextView(String operatorTag,String btnText) {
+    private void setOperator(String operatorTag, String btnText) {
         tvOperator.setText(btnText);
         if (operatorTag.equals("+"))
         {
-            isSum=true;
-            isDiv=false;
-            isMulti=false;
-            isSub=false;
-            isPercent=false;
-            isPower=false;
+            isSum=true; isDiv=false; isMulti=false; isSub=false; isPercent=false; isPower=false;
         }
         if (operatorTag.equals("-"))
         {
-            isSum=false;
-            isDiv=false;
-            isMulti=false;
-            isSub=true;
-            isPercent=false;
-            isPower=false;
+            isSum=false; isDiv=false; isMulti=false; isSub=true; isPercent=false; isPower=false;
         }
         if (operatorTag.equals("*"))
         {
-            isSum=false;
-            isDiv=false;
-            isMulti=true;
-            isSub=false;
-            isPercent=false;
-            isPower=false;
+            isSum=false; isDiv=false; isMulti=true; isSub=false; isPercent=false; isPower=false;
         }
         if (operatorTag.equals("/"))
         {
-            isSum=false;
-            isDiv=true;
-            isMulti=false;
-            isSub=false;
-            isPercent=false;
-            isPower=false;
+            isSum=false; isDiv=true; isMulti=false; isSub=false; isPercent=false; isPower=false;
         }
         if (operatorTag.equals("percent"))
         {
-            isSum=false;
-            isDiv=false;
-            isMulti=false;
-            isSub=false;
-            isPercent=true;
-            isPower=false;
+            isSum=false; isDiv=false; isMulti=false; isSub=false; isPercent=true; isPower=false;
         }
         if (operatorTag.equals("power"))
         {
-            isSum=false;
-            isDiv=false;
-            isMulti=false;
-            isSub=false;
-            isPercent=false;
-            isPower=true;
+            isSum=false; isDiv=false; isMulti=false; isSub=false; isPercent=false; isPower=true;
         }
 
     }
 
     private boolean checkAllViewsForPressOperator() {
-        if (tvNumber1.getText()==empty|| stringNumber1.equals(".")|| stringNumber2.equals(".")||tvNumber1.getText() != empty && tvNumber2.getText() != empty && tvOperator.getText() != empty)
+        if (stringNumber1.isEmpty()|| stringNumber1.equals(".")|| stringNumber2.equals(".")|| !stringNumber1.isEmpty() && !stringNumber2.isEmpty() && tvOperator.getText() != empty)
         {
             return true;
         }
